@@ -12,7 +12,7 @@ Este repositório contém a solução desenvolvida para a Entrega 1 do Bootcamp 
 - Alterações devem ser integradas por Pull Requests.
 
 ## Uso de IA
-- Utilizar o Claude Code como ferramenta de apoio ao desenvolvimento.
+- Utilizar o GitHub Copilot Chat como ferramenta de apoio ao desenvolvimento.
 - Antes de sugerir alterações, considerar o contexto e os arquivos existentes no repositório.
 - Não criar funcionalidades que não tenham sido solicitadas ou especificadas.
 - Explicar alterações relevantes de forma clara.
@@ -24,5 +24,6 @@ Este repositório contém a solução desenvolvida para a Entrega 1 do Bootcamp 
 - Preservar funcionalidades existentes.
 - Validar as alterações sempre que houver uma forma automatizada de fazê-lo.
 - Considerar requisitos funcionais e não funcionais definidos na especificação técnica do projeto.
+
 
 
