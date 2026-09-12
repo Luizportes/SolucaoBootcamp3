@@ -2,6 +2,14 @@
 
 Projeto desenvolvido para a Entrega 1 do Bootcamp 3.
 
+> ## ⚠️ Observação sobre o requisito de IA
+>
+> **Atenção:** o agente de IA especificado no enunciado (Claude Code, Codex CLI, Cursor ou Antigravity) não pôde ser utilizado devido a limitações de autenticação/acesso no ambiente disponível, sem contratação de serviço pago.
+>
+> Para não interromper o desenvolvimento, foi utilizado o **GitHub Copilot Chat (modo Agent)** como alternativa.
+>
+> A situação e as evidências estão documentadas em [`docs/ia/USO_IA.md`](docs/ia/USO_IA.md).
+
 ## Objetivo
 
 Desenvolver a base técnica e organizacional de uma solução para organização de agenda e tarefas, permitindo o gerenciamento de compromissos e da agenda virtual do usuário.
