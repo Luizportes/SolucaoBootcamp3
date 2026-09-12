@@ -51,3 +51,25 @@ A IA identificou que o repositório possuía inicialmente apenas os arquivos de 
 ## Refinamento das sugestões
 
 As sugestões produzidas pela IA deverão ser avaliadas pelos integrantes do projeto antes de serem incorporadas ao código. Alterações que não estejam de acordo com os requisitos definidos na especificação técnica deverão ser ajustadas ou rejeitadas.
+
+## Exemplo de avaliação e refinamento
+
+Durante o desenvolvimento, foi solicitado ao GitHub Copilot Chat que analisasse a rota `GET "/"` existente e sugerisse uma melhoria simples, sem alterar os arquivos.
+
+A IA sugeriu tornar o código mais explícito utilizando `status(200)` e extrair a mensagem retornada para uma constante.
+
+Após avaliação da sugestão, decidiu-se não aplicar a alteração neste momento. A rota já apresenta comportamento adequado para a etapa atual do projeto, o código é simples e a criação de uma constante para uma mensagem utilizada apenas uma vez não apresenta benefício relevante neste contexto.
+
+Esse caso demonstra que as sugestões da IA não são incorporadas automaticamente. Elas são avaliadas de acordo com os requisitos e com a necessidade atual do projeto, podendo ser aceitas, modificadas ou rejeitadas.
+
+### Prompt utilizado
+
+> Analise o arquivo `src/index.js` e sugira uma melhoria simples para a rota GET "/" que preserve o comportamento atual da aplicação. Não altere nenhum arquivo ainda. Explique primeiro qual alteração você recomenda e por quê.
+
+### Resultado da avaliação
+
+**Sugestão recebida:** adicionar `status(200)` e utilizar uma constante para a mensagem da API.
+
+**Decisão:** rejeitada neste momento.
+
+**Justificativa:** a alteração não é necessária para atender aos requisitos atuais e aumentaria a complexidade do código sem benefício proporcional.
