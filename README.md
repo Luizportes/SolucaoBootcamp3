@@ -77,3 +77,12 @@ SolucaoBootcamp3/
 ├── Dockerfile
 ├── package.json
 └── package-lock.json
+
+## Testes
+
+O projeto possui um Test Harness automatizado utilizando Jest e Supertest.
+
+Para executar os testes:
+
+```bash
+npm test

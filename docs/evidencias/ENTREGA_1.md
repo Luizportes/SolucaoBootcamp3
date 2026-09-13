@@ -530,9 +530,9 @@ Integrações iniciais realizadas na `develop`:
 
 ### Pendências da Entrega 1
 
-- [ ] Test Harness automatizado;
-- [ ] Suite inicial de testes;
-- [ ] Evidências de execução do Test Harness.
+- [x] Test Harness automatizado;
+- [x] Suite inicial de testes;
+- [x] Evidências de execução do Test Harness.
 
 As pendências relacionadas ao Test Harness correspondem à parte da entrega
 atribuída à Pessoa 3.

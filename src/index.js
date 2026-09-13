@@ -11,6 +11,10 @@ app.get("/", (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Servidor executando na porta ${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Servidor executando na porta ${PORT}`);
+    });
+}
+
+module.exports = app;
