@@ -55,13 +55,20 @@ A aplicação poderá ser acessada em:
 
 http://localhost:3000
 
+
+### 2. Substitua por:
+
 ## Estrutura atual
 
 ```text
 SolucaoBootcamp3/
 ├── docs/
-│   └── ia/
-│       └── USO_IA.md
+│   ├── arquitetura/
+│   │   └── ADR.md
+│   ├── ia/
+│   │   └── USO_IA.md
+│   └── sdd/
+│       └── SDD.md
 ├── src/
 │   └── index.js
 ├── .dockerignore
