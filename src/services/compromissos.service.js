@@ -1,35 +1,40 @@
 
-let compromissos = [];
-let proximoId = 1;
+const db = require("../database/database");
 
 function criarCompromisso(dados) {
-    const compromisso = {
-        id: proximoId++,
-        nome: dados.nome.trim(),
-        data: dados.data,
-        horario: dados.horario,
-        descricao: dados.descricao.trim()
-    };
+    const resultado = db.prepare(`
+        INSERT INTO compromissos (nome, data, horario, descricao)
+        VALUES (?, ?, ?, ?)
+    `).run(
+        dados.nome.trim(),
+        dados.data,
+        dados.horario,
+        dados.descricao.trim()
+    );
 
-    compromissos.push(compromisso);
-
-    return compromisso;
+    return buscarCompromissoPorId(resultado.lastInsertRowid);
 }
 
 function listarCompromissos(data) {
     if (data) {
-        return compromissos.filter(
-            compromisso => compromisso.data === data
-        );
+        return db.prepare(`
+            SELECT * FROM compromissos
+            WHERE data = ?
+            ORDER BY horario, id
+        `).all(data);
     }
 
-    return compromissos;
+    return db.prepare(`
+        SELECT * FROM compromissos
+        ORDER BY data, horario, id
+    `).all();
 }
 
 function buscarCompromissoPorId(id) {
-    return compromissos.find(
-        compromisso => compromisso.id === Number(id)
-    );
+    return db.prepare(`
+        SELECT * FROM compromissos
+        WHERE id = ?
+    `).get(Number(id)) || null;
 }
 
 function atualizarCompromisso(id, dados) {
@@ -39,26 +44,28 @@ function atualizarCompromisso(id, dados) {
         return null;
     }
 
-    compromisso.nome = dados.nome.trim();
-    compromisso.data = dados.data;
-    compromisso.horario = dados.horario;
-    compromisso.descricao = dados.descricao.trim();
+    db.prepare(`
+        UPDATE compromissos
+        SET nome = ?, data = ?, horario = ?, descricao = ?
+        WHERE id = ?
+    `).run(
+        dados.nome.trim(),
+        dados.data,
+        dados.horario,
+        dados.descricao.trim(),
+        Number(id)
+    );
 
-    return compromisso;
+    return buscarCompromissoPorId(id);
 }
 
 function excluirCompromisso(id) {
-    const indice = compromissos.findIndex(
-        compromisso => compromisso.id === Number(id)
-    );
+    const resultado = db.prepare(`
+        DELETE FROM compromissos
+        WHERE id = ?
+    `).run(Number(id));
 
-    if (indice === -1) {
-        return false;
-    }
-
-    compromissos.splice(indice, 1);
-
-    return true;
+    return resultado.changes > 0;
 }
 
 module.exports = {

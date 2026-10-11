@@ -1,31 +1,40 @@
 
-let tarefas = [];
-let proximoId = 1;
+const db = require("../database/database");
 
 function criarTarefa(dados) {
-    const tarefa = {
-        id: proximoId++,
-        titulo: dados.titulo.trim(),
-        prazo: dados.prazo,
-        descricao: dados.descricao.trim(),
-        status: dados.status.trim()
-    };
+    const resultado = db.prepare(`
+        INSERT INTO tarefas (titulo, prazo, descricao, status)
+        VALUES (?, ?, ?, ?)
+    `).run(
+        dados.titulo.trim(),
+        dados.prazo,
+        dados.descricao.trim(),
+        dados.status.trim()
+    );
 
-    tarefas.push(tarefa);
-
-    return tarefa;
+    return buscarTarefaPorId(resultado.lastInsertRowid);
 }
 
 function listarTarefas(prazo) {
     if (prazo) {
-        return tarefas.filter(tarefa => tarefa.prazo === prazo);
+        return db.prepare(`
+            SELECT * FROM tarefas
+            WHERE prazo = ?
+            ORDER BY id
+        `).all(prazo);
     }
 
-    return tarefas;
+    return db.prepare(`
+        SELECT * FROM tarefas
+        ORDER BY prazo, id
+    `).all();
 }
 
 function buscarTarefaPorId(id) {
-    return tarefas.find(tarefa => tarefa.id === Number(id));
+    return db.prepare(`
+        SELECT * FROM tarefas
+        WHERE id = ?
+    `).get(Number(id)) || null;
 }
 
 function atualizarTarefa(id, dados) {
@@ -35,26 +44,28 @@ function atualizarTarefa(id, dados) {
         return null;
     }
 
-    tarefa.titulo = dados.titulo.trim();
-    tarefa.prazo = dados.prazo;
-    tarefa.descricao = dados.descricao.trim();
-    tarefa.status = dados.status.trim();
+    db.prepare(`
+        UPDATE tarefas
+        SET titulo = ?, prazo = ?, descricao = ?, status = ?
+        WHERE id = ?
+    `).run(
+        dados.titulo.trim(),
+        dados.prazo,
+        dados.descricao.trim(),
+        dados.status.trim(),
+        Number(id)
+    );
 
-    return tarefa;
+    return buscarTarefaPorId(id);
 }
 
 function excluirTarefa(id) {
-    const indice = tarefas.findIndex(
-        tarefa => tarefa.id === Number(id)
-    );
+    const resultado = db.prepare(`
+        DELETE FROM tarefas
+        WHERE id = ?
+    `).run(Number(id));
 
-    if (indice === -1) {
-        return false;
-    }
-
-    tarefas.splice(indice, 1);
-
-    return true;
+    return resultado.changes > 0;
 }
 
 module.exports = {
