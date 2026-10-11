@@ -1,4 +1,7 @@
+
 const express = require("express");
+
+const compromissosRoutes = require("./routes/compromissos.routes");
 
 const app = express();
 const PORT = 3000;
@@ -10,6 +13,8 @@ app.get("/", (req, res) => {
         message: "API SolucaoBootcamp3 funcionando!"
     });
 });
+
+app.use("/api/compromissos", compromissosRoutes);
 
 if (require.main === module) {
     app.listen(PORT, () => {
