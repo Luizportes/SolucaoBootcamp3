@@ -3,6 +3,7 @@ const express = require("express");
 
 const compromissosRoutes = require("./routes/compromissos.routes");
 const tarefasRoutes = require("./routes/tarefas.routes");
+const cronogramaRoutes = require("./routes/cronograma.routes");
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/compromissos", compromissosRoutes);
 app.use("/api/tarefas", tarefasRoutes);
+app.use("/api/cronograma", cronogramaRoutes);
 
 if (require.main === module) {
     app.listen(PORT, () => {
