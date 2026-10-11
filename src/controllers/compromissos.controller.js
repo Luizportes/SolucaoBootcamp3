@@ -1,16 +1,19 @@
 
 const compromissosService = require("../services/compromissos.service");
 
+const {
+    textoValido,
+    dataValida,
+    horarioValido,
+    idValido
+} = require("../utils/validacoes");
+
 function dadosValidos(dados) {
     return (
-        typeof dados.nome === "string" &&
-        dados.nome.trim() !== "" &&
-        typeof dados.data === "string" &&
-        dados.data.trim() !== "" &&
-        typeof dados.horario === "string" &&
-        dados.horario.trim() !== "" &&
-        typeof dados.descricao === "string" &&
-        dados.descricao.trim() !== ""
+        textoValido(dados.nome) &&
+        dataValida(dados.data) &&
+        horarioValido(dados.horario) &&
+        textoValido(dados.descricao)
     );
 }
 
@@ -19,7 +22,7 @@ function criar(req, res) {
 
     if (!dadosValidos(dados)) {
         return res.status(400).json({
-            erro: "Nome, data, horario e descricao sao obrigatorios."
+            erro: "Dados invalidos. Informe nome, data valida, horario valido e descricao."
         });
     }
 
@@ -29,14 +32,26 @@ function criar(req, res) {
 }
 
 function listar(req, res) {
-    const compromissos = compromissosService.listarCompromissos(
-        req.query.data
-    );
+    const { data } = req.query;
+
+    if (data !== undefined && !dataValida(data)) {
+        return res.status(400).json({
+            erro: "Informe uma data valida no formato AAAA-MM-DD."
+        });
+    }
+
+    const compromissos = compromissosService.listarCompromissos(data);
 
     return res.status(200).json(compromissos);
 }
 
 function buscarPorId(req, res) {
+    if (!idValido(req.params.id)) {
+        return res.status(400).json({
+            erro: "Identificador de compromisso invalido."
+        });
+    }
+
     const compromisso = compromissosService.buscarCompromissoPorId(
         req.params.id
     );
@@ -51,11 +66,17 @@ function buscarPorId(req, res) {
 }
 
 function atualizar(req, res) {
+    if (!idValido(req.params.id)) {
+        return res.status(400).json({
+            erro: "Identificador de compromisso invalido."
+        });
+    }
+
     const dados = req.body || {};
 
     if (!dadosValidos(dados)) {
         return res.status(400).json({
-            erro: "Nome, data, horario e descricao sao obrigatorios."
+            erro: "Dados invalidos. Informe nome, data valida, horario valido e descricao."
         });
     }
 
@@ -74,6 +95,12 @@ function atualizar(req, res) {
 }
 
 function excluir(req, res) {
+    if (!idValido(req.params.id)) {
+        return res.status(400).json({
+            erro: "Identificador de compromisso invalido."
+        });
+    }
+
     const excluido = compromissosService.excluirCompromisso(
         req.params.id
     );

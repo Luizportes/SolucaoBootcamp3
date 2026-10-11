@@ -1,16 +1,19 @@
 
 const tarefasService = require("../services/tarefas.service");
 
+const {
+    textoValido,
+    dataValida,
+    statusValido,
+    idValido
+} = require("../utils/validacoes");
+
 function dadosValidos(dados) {
     return (
-        typeof dados.titulo === "string" &&
-        dados.titulo.trim() !== "" &&
-        typeof dados.prazo === "string" &&
-        dados.prazo.trim() !== "" &&
-        typeof dados.descricao === "string" &&
-        dados.descricao.trim() !== "" &&
-        typeof dados.status === "string" &&
-        dados.status.trim() !== ""
+        textoValido(dados.titulo) &&
+        dataValida(dados.prazo) &&
+        textoValido(dados.descricao) &&
+        statusValido(dados.status)
     );
 }
 
@@ -19,7 +22,7 @@ function criar(req, res) {
 
     if (!dadosValidos(dados)) {
         return res.status(400).json({
-            erro: "Titulo, prazo, descricao e status sao obrigatorios."
+            erro: "Dados invalidos. Informe titulo, prazo valido, descricao e status permitido."
         });
     }
 
@@ -29,13 +32,29 @@ function criar(req, res) {
 }
 
 function listar(req, res) {
-    const tarefas = tarefasService.listarTarefas(req.query.prazo);
+    const { prazo } = req.query;
+
+    if (prazo !== undefined && !dataValida(prazo)) {
+        return res.status(400).json({
+            erro: "Informe um prazo valido no formato AAAA-MM-DD."
+        });
+    }
+
+    const tarefas = tarefasService.listarTarefas(prazo);
 
     return res.status(200).json(tarefas);
 }
 
 function buscarPorId(req, res) {
-    const tarefa = tarefasService.buscarTarefaPorId(req.params.id);
+    if (!idValido(req.params.id)) {
+        return res.status(400).json({
+            erro: "Identificador de tarefa invalido."
+        });
+    }
+
+    const tarefa = tarefasService.buscarTarefaPorId(
+        req.params.id
+    );
 
     if (!tarefa) {
         return res.status(404).json({
@@ -47,15 +66,24 @@ function buscarPorId(req, res) {
 }
 
 function atualizar(req, res) {
+    if (!idValido(req.params.id)) {
+        return res.status(400).json({
+            erro: "Identificador de tarefa invalido."
+        });
+    }
+
     const dados = req.body || {};
 
     if (!dadosValidos(dados)) {
         return res.status(400).json({
-            erro: "Titulo, prazo, descricao e status sao obrigatorios."
+            erro: "Dados invalidos. Informe titulo, prazo valido, descricao e status permitido."
         });
     }
 
-    const tarefa = tarefasService.atualizarTarefa(req.params.id, dados);
+    const tarefa = tarefasService.atualizarTarefa(
+        req.params.id,
+        dados
+    );
 
     if (!tarefa) {
         return res.status(404).json({
@@ -67,7 +95,15 @@ function atualizar(req, res) {
 }
 
 function excluir(req, res) {
-    const excluido = tarefasService.excluirTarefa(req.params.id);
+    if (!idValido(req.params.id)) {
+        return res.status(400).json({
+            erro: "Identificador de tarefa invalido."
+        });
+    }
+
+    const excluido = tarefasService.excluirTarefa(
+        req.params.id
+    );
 
     if (!excluido) {
         return res.status(404).json({
