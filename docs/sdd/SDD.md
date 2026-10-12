@@ -294,13 +294,253 @@ A integração deverá permitir que as atividades sejam apresentadas no cronogra
 
 ## 7. Refinamento por Feedback
 
-O SDD será refinado de forma iterativa durante o desenvolvimento do projeto.
+Durante a Entrega 2, a especificação foi refinada a partir da implementação, da identificação de limitações técnicas e da ampliação dos testes automatizados.
 
-Os requisitos, regras e componentes poderão ser ajustados a partir de:
-- Resultados dos testes realizados durante o desenvolvimento;
-- Revisões realizadas pelo grupo;
-- Identificação de inconsistências ou necessidades de alteração durante a implementação.
+Os refinamentos abrangeram a definição dos contratos HTTP, a validação de entradas, a persistência dos dados com SQLite e a integração da API com uma interface web.
 
-Até o momento, esta versão representa a especificação inicial do sistema, baseada na definição do problema e nas funcionalidades estabelecidas para o projeto.
+As alterações efetivamente realizadas são descritas nas seções seguintes, preservando os requisitos funcionais RF01 a RF09 definidos originalmente.
 
-Alterações futuras deverão ser registradas na documentação quando houver impacto nos requisitos, regras de negócio, contratos ou decomposição da solução.
+---
+
+## 8. Contratos HTTP Implementados
+
+A aplicação utiliza uma API REST desenvolvida com Node.js e Express, disponibilizando operações para gerenciamento de compromissos, tarefas e consulta do cronograma.
+
+As requisições de cadastro e atualização utilizam JSON.
+
+### 8.1 API de Compromissos
+
+| Método | Endpoint | Finalidade |
+|---|---|---|
+| POST | /api/compromissos | Criar compromisso |
+| GET | /api/compromissos | Listar compromissos |
+| GET | /api/compromissos?data=AAAA-MM-DD | Filtrar compromissos por data |
+| GET | /api/compromissos/:id | Consultar compromisso por ID |
+| PUT | /api/compromissos/:id | Atualizar compromisso |
+| DELETE | /api/compromissos/:id | Excluir compromisso |
+
+#### Dados de um compromisso
+
+```json
+{
+  "nome": "Reuniao de projeto",
+  "data": "2026-10-20",
+  "horario": "14:00",
+  "descricao": "Revisar o andamento do projeto"
+}
+```
+
+Na criação, a API retorna HTTP 201 e um objeto contendo os dados cadastrados e um identificador numérico.
+
+Na consulta e na atualização bem-sucedidas, retorna HTTP 200.
+
+Na exclusão bem-sucedida, retorna HTTP 200 com uma mensagem de confirmação.
+
+### 8.2 API de Tarefas
+
+| Método | Endpoint | Finalidade |
+|---|---|---|
+| POST | /api/tarefas | Criar tarefa |
+| GET | /api/tarefas | Listar tarefas |
+| GET | /api/tarefas?prazo=AAAA-MM-DD | Filtrar tarefas por prazo |
+| GET | /api/tarefas/:id | Consultar tarefa por ID |
+| PUT | /api/tarefas/:id | Atualizar tarefa |
+| DELETE | /api/tarefas/:id | Excluir tarefa |
+
+#### Dados de uma tarefa
+
+```json
+{
+  "titulo": "Estudar",
+  "prazo": "2026-10-20",
+  "descricao": "Revisar o conteudo",
+  "status": "pendente"
+}
+```
+
+O comportamento dos códigos HTTP segue o mesmo padrão utilizado pela API de compromissos.
+
+### 8.3 API de Cronograma
+
+Endpoint:
+
+GET /api/cronograma?data=AAAA-MM-DD
+
+O cronograma reúne compromissos e tarefas associados à data informada.
+
+Exemplo de resposta:
+
+```json
+{
+  "data": "2026-10-20",
+  "compromissos": [],
+  "tarefas": []
+}
+```
+
+Caso existam atividades na data, os respectivos objetos são retornados dentro das listas.
+
+A consulta não cria novos registros: utiliza os dados dos componentes de compromissos e tarefas.
+
+### 8.4 Códigos HTTP
+
+| Código | Significado |
+|---|---|
+| 200 | Consulta, atualização ou exclusão realizada |
+| 201 | Registro criado |
+| 400 | Dados de entrada ou identificador inválidos |
+| 404 | Registro ou rota inexistente |
+
+---
+
+## 9. Refinamento das Regras de Validação
+
+Durante a implementação, identificou-se que verificar apenas a presença dos campos não era suficiente para garantir a validade dos dados.
+
+Foi criado o módulo compartilhado `src/utils/validacoes.js`, utilizado pelos controllers.
+
+### 9.1 Validação de Compromissos
+
+- Nome e descrição devem conter texto não vazio.
+- A data deve seguir o formato AAAA-MM-DD e representar uma data real.
+- O horário deve seguir o formato HH:MM, entre 00:00 e 23:59.
+- O identificador deve ser um número inteiro positivo válido.
+
+### 9.2 Validação de Tarefas
+
+- Título e descrição devem conter texto não vazio.
+- O prazo deve seguir o formato AAAA-MM-DD e representar uma data real.
+- O identificador deve ser um número inteiro positivo válido.
+- O status deve assumir um dos valores permitidos:
+  - pendente;
+  - em andamento;
+  - concluida.
+
+A definição dos valores permitidos para o status constitui um refinamento da especificação inicial, que exigia o campo, mas não delimitava seus valores.
+
+### 9.3 Validação do Cronograma
+
+O cronograma exige uma data válida, incluindo verificação de datas inexistentes e anos bissextos.
+
+Entradas inválidas recebem HTTP 400, enquanto registros não encontrados recebem HTTP 404 quando aplicável.
+
+---
+
+## 10. Arquitetura Implementada
+
+A solução utiliza uma arquitetura organizada em camadas.
+
+### 10.1 Interface Web
+
+A interface foi implementada com HTML, CSS e JavaScript, disponibilizada pelo Express no caminho `/agenda/`.
+
+Permite:
+
+- selecionar datas e visualizar atividades;
+- cadastrar compromissos e tarefas;
+- atualizar registros existentes;
+- excluir registros;
+- visualizar mensagens de retorno da aplicação.
+
+A comunicação com a API ocorre por meio de requisições HTTP realizadas com JavaScript.
+
+### 10.2 Rotas
+
+Localizadas em `src/routes/`.
+
+Definem os endpoints HTTP e encaminham as requisições aos controllers correspondentes.
+
+### 10.3 Controllers
+
+Localizados em `src/controllers/`.
+
+Recebem os dados das requisições, aplicam validações e retornam as respostas HTTP.
+
+### 10.4 Services
+
+Localizados em `src/services/`.
+
+Executam as operações de criação, consulta, atualização e exclusão de compromissos e tarefas, utilizando o armazenamento SQLite.
+
+### 10.5 Persistência
+
+A aplicação utiliza SQLite nativo do Node.js 24.
+
+O módulo `src/database/database.js` configura a conexão e cria as tabelas necessárias.
+
+As tabelas implementadas são:
+
+- compromissos;
+- tarefas.
+
+Na execução local, os registros são armazenados em `data/agenda.db`, salvo quando configurado outro caminho pela variável de ambiente `DB_PATH`.
+
+Durante os testes automatizados comuns, é utilizado SQLite em memória, evitando alterações no banco real.
+
+### 10.6 Docker
+
+A aplicação utiliza Dockerfile e Docker Compose para padronizar a execução.
+
+O arquivo `compose.yaml` configura a aplicação e associa um volume persistente ao diretório `/app/data`.
+
+A persistência foi verificada após a remoção e recriação do container.
+
+---
+
+## 11. Refinamentos e Validação da Entrega 2
+
+### 11.1 Persistência dos Dados
+
+Limitação inicial: compromissos e tarefas eram armazenados em arrays JavaScript e desapareciam após reiniciar o servidor.
+
+Refinamento realizado: substituição do armazenamento em memória por SQLite.
+
+Validação: teste automatizado de persistência entre processos e verificação manual de recuperação dos registros.
+
+### 11.2 Validação das Entradas
+
+Limitação inicial: eram aceitas algumas datas, horários e situações de tarefa inválidas.
+
+Refinamento realizado: criação de funções de validação compartilhadas e integração aos controllers.
+
+Validação: ampliação da suíte automatizada com cenários inválidos e casos de borda.
+
+### 11.3 Isolamento dos Testes
+
+Limitação identificada: registros criados durante uma execução poderiam interferir nos testes seguintes da mesma suíte.
+
+Refinamento realizado: configuração do Jest para limpar as tabelas antes de cada teste e utilização de SQLite em memória.
+
+Validação: execução repetida da suíte automatizada e testes específicos de isolamento.
+
+### 11.4 Reprodutibilidade no Docker
+
+Problema identificado: inconsistências no arquivo package-lock.json impediram inicialmente a instalação das dependências pelo comando npm ci dentro da imagem Linux.
+
+Correção realizada: atualização do lockfile no ambiente Node.js Linux e reconstrução da imagem Docker.
+
+Validação: construção bem-sucedida da imagem e execução dos testes dentro do container.
+
+### 11.5 Resultado dos Testes
+
+A última execução registrada do Test Harness apresentou:
+
+- 8 suítes aprovadas;
+- 47 testes aprovados;
+- 0 falhas.
+
+A execução foi confirmada no ambiente local e no Docker.
+
+O resultado comprova a aprovação dos cenários automatizados existentes, sem representar garantia de ausência de todos os defeitos possíveis.
+
+---
+
+## 12. Limitações Conhecidas
+
+O suporte nativo ao SQLite utilizado no Node.js 24.11.1 apresenta um aviso de funcionalidade experimental, indicando possibilidade de alterações futuras na API.
+
+Também foram identificados alertas de segurança em dependências de desenvolvimento. A vulnerabilidade crítica anteriormente presente na árvore de produção foi corrigida, e a auditoria de produção retornou zero vulnerabilidades naquele momento.
+
+Os alertas remanescentes exigem acompanhamento e não foram corrigidos por meio de atualizações forçadas potencialmente incompatíveis.
+
+O projeto representa uma solução simplificada de agenda virtual, sem funcionalidades avançadas como contas de usuários, compartilhamento de agendas, notificações ou sincronização com serviços externos.
