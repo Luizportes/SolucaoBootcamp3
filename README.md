@@ -142,11 +142,15 @@ docker compose run --rm --no-deps -e NODE_ENV=test app npm test -- --runInBand
 SolucaoBootcamp3/
 ├── docs/
 │   ├── arquitetura/
-│   │   └── ADR.md
+│   │   ├── ADR.md
+│   │   └── FLUXO.md
 │   ├── evidencias/
-│   │   └── ENTREGA_1.md
+│   │   ├── ENTREGA_1.md
+│   │   └── ENTREGA_2.md
 │   ├── ia/
-│   │   └── USO_IA.md
+│   │   ├── USO_IA.md
+│   │   ├── COMPARACAO_FERRAMENTAS.md
+│   │   └── ANALISE_CRITICA.md
 │   ├── sdd/
 │   │   └── SDD.md
 │   └── testes/
@@ -162,34 +166,24 @@ SolucaoBootcamp3/
 │   ├── database/
 │   ├── routes/
 │   ├── services/
-│   ├── utils/
-│   └── index.js
+│   └── utils/
 ├── tests/
-│   ├── compromissos.test.js
-│   ├── cronograma.test.js
-│   ├── index.test.js
-│   ├── interface.test.js
-│   ├── isolamento.test.js
-│   ├── persistencia.test.js
-│   ├── setup.js
-│   ├── tarefas.test.js
-│   └── validacoes.test.js
-├── .dockerignore
-├── .gitignore
-├── CLAUDE.md
-├── compose.yaml
+├── data/
 ├── Dockerfile
-├── jest.config.cjs
+├── compose.yaml
 ├── package.json
-└── package-lock.json
+└── README.md
 ```
-
 ## Documentação técnica
 
 - [Software Design Document (SDD)](docs/sdd/SDD.md)
 - [Registro de Decisões Arquiteturais (ADR)](docs/arquitetura/ADR.md)
+- [Diagrama do fluxo da aplicação](docs/arquitetura/FLUXO.md)
 - [Registro de uso de Inteligência Artificial](docs/ia/USO_IA.md)
+- [Comparação de ferramentas de IA](docs/ia/COMPARACAO_FERRAMENTAS.md)
+- [Análise crítica e ética do uso de IA](docs/ia/ANALISE_CRITICA.md)
 - [Evidências da Entrega 1](docs/evidencias/ENTREGA_1.md)
+- [Evidências da Entrega 2](docs/evidencias/ENTREGA_2.md)
 - [Relatório de testes da Entrega 2](docs/testes/RELATORIO_TESTES.md)
 - [Correções e refinamentos da Entrega 2](docs/testes/CORRECOES_E_REFINAMENTOS.md)
 - [Test Harness](docs/testes/TEST_HARNESS.md)
