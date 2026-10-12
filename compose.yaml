@@ -1,0 +1,23 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: solucaobootcamp3:latest
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      NODE_ENV: production
+      DB_PATH: /app/data/agenda.db
+
+    volumes:
+      - agenda_data:/app/data
+
+    restart: unless-stopped
+
+volumes:
+  agenda_data:
