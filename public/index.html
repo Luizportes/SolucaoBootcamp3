@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Minha Agenda</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <header class="cabecalho">
+        <div>
+            <h1>Minha Agenda</h1>
+            <p>Organize seus compromissos e tarefas.</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="painel">
+            <h2>Meu cronograma</h2>
+
+            <div class="filtro-data">
+                <label for="dataAgenda">
+                    Selecione uma data:
+                </label>
+
+                <input type="date" id="dataAgenda">
+
+                <button type="button" id="btnConsultar">
+                    Consultar
+                </button>
+            </div>
+        </section>
+
+        <section class="grid-atividades">
+
+            <div class="painel">
+                <h2>Compromissos</h2>
+
+                <div id="listaCompromissos">
+                    <p class="mensagem-vazia">
+                        Selecione uma data para visualizar seus compromissos.
+                    </p>
+                </div>
+            </div>
+
+            <div class="painel">
+                <h2>Tarefas</h2>
+
+                <div id="listaTarefas">
+                    <p class="mensagem-vazia">
+                        Selecione uma data para visualizar suas tarefas.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="grid-formularios">
+
+            <div class="painel">
+                <h2 id="tituloFormCompromisso">
+                    Novo compromisso
+                </h2>
+
+                <form id="formCompromisso">
+
+                    <input type="hidden" id="compromissoId">
+
+                    <label for="nomeCompromisso">Nome</label>
+                    <input
+                        type="text"
+                        id="nomeCompromisso"
+                        required
+                    >
+
+                    <label for="dataCompromisso">Data</label>
+                    <input
+                        type="date"
+                        id="dataCompromisso"
+                        required
+                    >
+
+                    <label for="horarioCompromisso">Horário</label>
+                    <input
+                        type="time"
+                        id="horarioCompromisso"
+                        required
+                    >
+
+                    <label for="descricaoCompromisso">Descrição</label>
+                    <textarea
+                        id="descricaoCompromisso"
+                        required
+                    ></textarea>
+
+                    <button type="submit">
+                        Salvar compromisso
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelarCompromisso"
+                        class="botao-secundario"
+                        hidden
+                    >
+                        Cancelar edição
+                    </button>
+
+                </form>
+            </div>
+
+            <div class="painel">
+                <h2 id="tituloFormTarefa">
+                    Nova tarefa
+                </h2>
+
+                <form id="formTarefa">
+
+                    <input type="hidden" id="tarefaId">
+
+                    <label for="tituloTarefa">Título</label>
+                    <input
+                        type="text"
+                        id="tituloTarefa"
+                        required
+                    >
+
+                    <label for="prazoTarefa">Prazo</label>
+                    <input
+                        type="date"
+                        id="prazoTarefa"
+                        required
+                    >
+
+                    <label for="descricaoTarefa">Descrição</label>
+                    <textarea
+                        id="descricaoTarefa"
+                        required
+                    ></textarea>
+
+                    <label for="statusTarefa">Status</label>
+                    <select id="statusTarefa">
+                        <option value="pendente">Pendente</option>
+                        <option value="em andamento">Em andamento</option>
+                        <option value="concluida">Concluída</option>
+                    </select>
+
+                    <button type="submit">
+                        Salvar tarefa
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelarTarefa"
+                        class="botao-secundario"
+                        hidden
+                    >
+                        Cancelar edição
+                    </button>
+
+                </form>
+            </div>
+
+        </section>
+
+        <p id="mensagemSistema" role="status" aria-live="polite"></p>
+
+    </main>
+
+</body>
+</html>

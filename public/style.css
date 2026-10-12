@@ -1,0 +1,267 @@
+
+:root {
+    --azul-principal: #2563eb;
+    --azul-escuro: #1e40af;
+    --azul-claro: #eff6ff;
+    --fundo: #f5f7fb;
+    --branco: #ffffff;
+    --texto: #172033;
+    --texto-secundario: #64748b;
+    --borda: #e2e8f0;
+    --perigo: #dc2626;
+    --sombra: 0 6px 24px rgba(15, 23, 42, 0.06);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+.cabecalho {
+    background: linear-gradient(120deg, #1e40af, #3b82f6);
+    color: var(--branco);
+    padding: 34px 24px;
+}
+
+.cabecalho > div {
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.cabecalho h1 {
+    margin: 0;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+}
+
+.cabecalho p {
+    margin: 6px 0 0;
+    color: #dbeafe;
+}
+
+.container {
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 0 20px 45px;
+}
+
+.painel {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    box-shadow: var(--sombra);
+    padding: 24px;
+    min-width: 0;
+}
+
+.painel h2 {
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.filtro-data {
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.filtro-data label {
+    align-self: center;
+    font-weight: 600;
+}
+
+.grid-atividades,
+.grid-formularios {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 22px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 11px 12px;
+    margin-bottom: 17px;
+    background: var(--branco);
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    color: var(--texto);
+    font: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--azul-principal);
+    outline: 3px solid #dbeafe;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 95px;
+}
+
+.filtro-data input {
+    width: 190px;
+    margin: 0;
+}
+
+button {
+    background: var(--azul-principal);
+    color: var(--branco);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+    background: var(--azul-escuro);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+form button[type="submit"] {
+    width: 100%;
+}
+
+.botao-secundario {
+    background: #e2e8f0;
+    color: #334155;
+    margin-top: 10px;
+}
+
+.botao-secundario:hover {
+    background: #cbd5e1;
+}
+
+.mensagem-vazia {
+    color: var(--texto-secundario);
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.item-atividade {
+    background: #f8fafc;
+    border: 1px solid var(--borda);
+    border-left: 4px solid var(--azul-principal);
+    border-radius: 9px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+.item-atividade h3 {
+    font-size: 16px;
+    margin: 0 0 8px;
+}
+
+.item-atividade p {
+    margin: 5px 0;
+    color: #475569;
+    overflow-wrap: anywhere;
+}
+
+.item-atividade.tarefa {
+    border-left-color: #0d9488;
+}
+
+.acoes-atividade {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.acoes-atividade button {
+    font-size: 13px;
+    padding: 8px 12px;
+}
+
+.botao-excluir {
+    background: var(--perigo);
+}
+
+.botao-excluir:hover {
+    background: #b91c1c;
+}
+
+#mensagemSistema {
+    min-height: 24px;
+    margin-top: 22px;
+    font-weight: 600;
+    color: var(--azul-escuro);
+}
+
+#mensagemSistema.erro {
+    color: var(--perigo);
+}
+
+button[hidden] {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .cabecalho {
+        padding: 28px 18px;
+    }
+
+    .cabecalho h1 {
+        font-size: 27px;
+    }
+
+    .container {
+        margin: 20px auto;
+        padding: 0 14px 30px;
+    }
+
+    .painel {
+        padding: 19px;
+    }
+
+    .grid-atividades,
+    .grid-formularios {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .filtro-data {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .filtro-data label {
+        align-self: flex-start;
+    }
+
+    .filtro-data input,
+    .filtro-data button {
+        width: 100%;
+    }
+}
