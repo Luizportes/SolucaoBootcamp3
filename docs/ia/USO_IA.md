@@ -22,8 +22,9 @@ A ferramenta de IA utilizada no desenvolvimento foi o GitHub Copilot Chat, por m
 
 ## Objetivo do uso da IA
 
-A IA será utilizada como ferramenta de apoio durante o desenvolvimento, auxiliando na análise do projeto, geração e revisão de código, documentação, identificação de problemas e refinamento das soluções propostas.
+A IA foi utilizada como ferramenta de apoio durante o desenvolvimento do projeto, auxiliando na análise do repositório, revisão de código, documentação, identificação de problemas e refinamento das soluções propostas.
 
+As sugestões foram avaliadas conforme os requisitos do projeto. A utilização da IA não substituiu a execução dos testes nem a validação das alterações realizadas.
 ## Contexto do projeto
 
 Foi criado o arquivo `CLAUDE.md` contendo o contexto do projeto, as regras de colaboração, orientações para utilização de IA e critérios de qualidade.
@@ -73,3 +74,18 @@ Esse caso demonstra que as sugestões da IA não são incorporadas automaticamen
 **Decisão:** rejeitada neste momento.
 
 **Justificativa:** a alteração não é necessária para atender aos requisitos atuais e aumentaria a complexidade do código sem benefício proporcional.
+
+---
+
+## Apoio à documentação da Entrega 2
+
+Durante a preparação da documentação da Entrega 2, a IA foi utilizada como apoio para organizar e revisar os documentos do projeto.
+
+As atividades de documentação envolveram:
+
+- revisão do README para refletir as funcionalidades implementadas;
+- organização das decisões arquiteturais registradas no ADR;
+- conferência da documentação técnica em relação à implementação descrita no SDD;
+- preparação de orientações para revisão dos documentos e conferência do estado do Git.
+
+As alterações propostas devem ser conferidas pelo integrante responsável antes de serem incorporadas ao repositório. Os resultados dos testes devem ser apresentados conforme as execuções efetivamente realizadas, sem inventar evidências ou resultados.
