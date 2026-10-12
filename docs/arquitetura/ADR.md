@@ -104,3 +104,57 @@ cronograma, com APIs isoladas para as operações de compromissos e tarefas.
 
 A decomposição permite separar responsabilidades e facilita o desenvolvimento
 e os testes das diferentes partes da solução.
+
+---
+
+## ADR06 — Utilização de SQLite para persistência
+
+**Status:** Aceita
+
+### Contexto
+
+A implementação inicial armazenava compromissos e tarefas em arrays JavaScript, fazendo com que os registros fossem perdidos após a reinicialização do servidor.
+
+### Decisão
+
+Foi adotado o SQLite para armazenar compromissos e tarefas de forma persistente.
+
+### Justificativa
+
+O SQLite permite armazenar os dados em um banco de dados local, sem exigir um servidor de banco de dados separado. A solução também permite utilizar um banco em memória durante os testes automatizados, favorecendo o isolamento entre os cenários.
+
+---
+
+## ADR07 — Organização da aplicação em camadas
+
+**Status:** Aceita
+
+### Contexto
+
+A aplicação possui responsabilidades distintas relacionadas ao recebimento de requisições HTTP, ao tratamento das operações de negócio e ao armazenamento dos dados.
+
+### Decisão
+
+Foi adotada a organização da aplicação em rotas, controllers, services e módulo de banco de dados.
+
+### Justificativa
+
+A separação de responsabilidades facilita a manutenção do código, a identificação de erros e a realização de testes nas diferentes partes da aplicação.
+
+---
+
+## ADR08 — Utilização de testes automatizados com Jest
+
+**Status:** Aceita
+
+### Contexto
+
+A aplicação precisa verificar o comportamento das APIs, as validações de entrada, o isolamento dos testes e a persistência dos dados.
+
+### Decisão
+
+Foi adotado o Jest como ferramenta de execução dos testes automatizados, com Supertest para auxiliar nos testes HTTP.
+
+### Justificativa
+
+A automação permite executar os cenários de teste de maneira repetível e identificar regressões durante a evolução do projeto. A suíte registrada para a Entrega 2 possui 8 suítes e 47 testes aprovados.
