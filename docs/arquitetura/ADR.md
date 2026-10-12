@@ -25,6 +25,11 @@ desenvolvimento da aplicação utilizando JavaScript.
 
 ---
 
+### Alternativas e trade-offs
+
+**Alternativas para comparação:** utilizar outro ambiente de execução ou manter Node.js.
+
+**Trade-offs e consequências:** manter Node.js aproveita a configuração e o uso de JavaScript no projeto, mas exige compatibilidade entre a versão do runtime, as dependências e os recursos utilizados.
 ## ADR02 — Utilização do Express
 
 **Status:** Aceita
@@ -45,6 +50,11 @@ implementação das rotas da aplicação.
 
 ---
 
+### Alternativas e trade-offs
+
+**Alternativas para comparação:** implementar as rotas com outro framework ou utilizar o Express já configurado.
+
+**Trade-offs e consequências:** o Express oferece uma estrutura direta para as rotas HTTP, mas introduz dependência de um framework e exige manter suas dependências atualizadas.
 ## ADR03 — Utilização de Docker
 
 **Status:** Aceita
@@ -65,6 +75,11 @@ entre os ambientes utilizados durante o desenvolvimento.
 
 ---
 
+### Alternativas e trade-offs
+
+**Alternativas para comparação:** executar a aplicação diretamente no ambiente local ou utilizar Docker.
+
+**Trade-offs e consequências:** Docker favorece a reprodução do ambiente, mas requer instalação, configuração e familiaridade com os comandos de contêineres. A execução local pode ser mais simples, porém depende mais da configuração de cada máquina.
 ## ADR04 — Estratégia de branches
 
 **Status:** Aceita
@@ -86,6 +101,11 @@ para integração.
 
 ---
 
+### Alternativas e trade-offs
+
+**Alternativas para comparação:** desenvolver diretamente em uma única branch ou separar branches de produção, integração e funcionalidades.
+
+**Trade-offs e consequências:** `main`, `develop` e `feature/*` organizam o trabalho e permitem revisar alterações por Pull Request, mas exigem disciplina na sincronização das branches e no processo de integração.
 ## ADR05 — Desenvolvimento por componentes
 
 **Status:** Aceita
@@ -107,6 +127,11 @@ e os testes das diferentes partes da solução.
 
 ---
 
+### Alternativas e trade-offs
+
+**Alternativas para comparação:** concentrar as operações em um único componente ou separar compromissos, tarefas e cronograma.
+
+**Trade-offs e consequências:** separar responsabilidades facilita a manutenção e os testes, mas exige coordenar os componentes e manter contratos consistentes entre as partes da aplicação.
 ## ADR06 — Utilização de SQLite para persistência
 
 **Status:** Aceita
@@ -125,6 +150,11 @@ O SQLite permite armazenar os dados em um banco de dados local, sem exigir um se
 
 ---
 
+### Alternativas e trade-offs
+
+**Alternativas para comparação:** manter os dados em memória, utilizar SQLite ou adotar um banco de dados externo.
+
+**Trade-offs e consequências:** SQLite oferece persistência local sem exigir um servidor de banco separado, mas não substitui automaticamente todas as capacidades de um banco gerenciado para cenários de maior escala. O banco em memória facilita testes isolados, mas não mantém os dados após o encerramento do processo de teste.
 ## ADR07 — Organização da aplicação em camadas
 
 **Status:** Aceita
@@ -143,6 +173,11 @@ A separação de responsabilidades facilita a manutenção do código, a identif
 
 ---
 
+### Alternativas e trade-offs
+
+**Alternativas para comparação:** concentrar a lógica em poucos arquivos ou separar rotas, controllers, services e banco de dados.
+
+**Trade-offs e consequências:** a organização em camadas torna as responsabilidades mais claras e facilita testes e manutenção, mas acrescenta arquivos e exige definir corretamente a comunicação entre as camadas.
 ## ADR08 — Utilização de testes automatizados com Jest
 
 **Status:** Aceita
@@ -158,3 +193,9 @@ Foi adotado o Jest como ferramenta de execução dos testes automatizados, com S
 ### Justificativa
 
 A automação permite executar os cenários de teste de maneira repetível e identificar regressões durante a evolução do projeto. A suíte registrada para a Entrega 2 possui 8 suítes e 47 testes aprovados.
+
+### Alternativas e trade-offs
+
+**Alternativas para comparação:** realizar verificações apenas manualmente ou utilizar testes automatizados com Jest e Supertest.
+
+**Trade-offs e consequências:** os testes automatizados permitem repetir verificações e identificar regressões, mas exigem manutenção dos cenários e não garantem ausência de defeitos. A suíte atual cobre os casos implementados, não necessariamente todas as situações possíveis.
