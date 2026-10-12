@@ -5,11 +5,14 @@ const path = require("node:path");
 
 // Durante os testes, usamos um banco temporario.
 // Na execucao normal, usamos um arquivo persistente.
-const caminhoBanco = process.env.DB_PATH || (
-    process.env.NODE_ENV === "test"
-        ? ":memory:"
-        : path.join(__dirname, "../../data/agenda.db")
-);
+
+const caminhoBanco = process.env.NODE_ENV === "test"
+    ? ":memory:"
+    : (
+        process.env.DB_PATH ||
+        path.join(__dirname, "../../data/agenda.db")
+    );
+
 
 // Criar a pasta do banco quando necessario.
 if (caminhoBanco !== ":memory:") {
