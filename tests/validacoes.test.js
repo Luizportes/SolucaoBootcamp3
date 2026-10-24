@@ -169,7 +169,6 @@ describe("Validacoes da API", () => {
         });
     });
 
-    
 describe("Cobertura adicional das validacoes", () => {
     const {
         dataValida,
