@@ -141,4 +141,49 @@ describe("API de Compromissos", () => {
         ).toBe(true);
     });
 
+describe("Casos de erro adicionais - Compromissos", () => {
+
+    const compromissoValido = {
+        nome: "Reuniao de projeto",
+        data: "2026-10-20",
+        horario: "14:00",
+        descricao: "Revisar o andamento do projeto"
+    };
+
+    test("PUT deve rejeitar identificador invalido", async () => {
+        const response = await request(app)
+            .put("/api/compromissos/abc")
+            .send(compromissoValido);
+
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toHaveProperty("erro");
+    });
+
+    test("PUT deve retornar 404 para compromisso inexistente", async () => {
+        const response = await request(app)
+            .put("/api/compromissos/999999")
+            .send(compromissoValido);
+
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toHaveProperty("erro");
+    });
+
+    test("DELETE deve rejeitar identificador invalido", async () => {
+        const response = await request(app)
+            .delete("/api/compromissos/abc");
+
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toHaveProperty("erro");
+    });
+
+    test("DELETE deve retornar 404 para compromisso inexistente", async () => {
+        const response = await request(app)
+            .delete("/api/compromissos/999999");
+
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toHaveProperty("erro");
+    });
+
+});
+
 });

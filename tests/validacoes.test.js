@@ -169,4 +169,32 @@ describe("Validacoes da API", () => {
         });
     });
 
+describe("Cobertura adicional das validacoes", () => {
+    const {
+        dataValida,
+        horarioValido,
+        idValido
+    } = require("../src/utils/validacoes");
+
+    test("deve rejeitar datas com ano menor que 1", () => {
+        expect(dataValida("0000-01-01")).toBe(false);
+    });
+
+    test("deve rejeitar horarios que nao sejam strings", () => {
+        expect(horarioValido(null)).toBe(false);
+        expect(horarioValido(1430)).toBe(false);
+    });
+
+    test("deve rejeitar horarios com formato incorreto", () => {
+        expect(horarioValido("14:3")).toBe(false);
+        expect(horarioValido("14h30")).toBe(false);
+    });
+
+    test("deve rejeitar identificadores que nao sejam strings", () => {
+        expect(idValido(null)).toBe(false);
+        expect(idValido(1)).toBe(false);
+    });
+});
+
+
 });

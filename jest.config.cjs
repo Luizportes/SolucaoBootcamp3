@@ -8,5 +8,14 @@ module.exports = {
 
     testMatch: [
         "**/tests/**/*.test.js"
-    ]
+    ],
+    collectCoverageFrom: [
+        "src/**/*.js"
+    ],
+    coverageReporters: [
+        "text",
+        "html",
+        "lcov"
+    ],
+    coverageDirectory: "coverage"
 };

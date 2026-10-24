@@ -1,0 +1,56 @@
+
+> solucaobootcamp3@1.0.0 test:coverage
+> jest --coverage --runInBand
+
+npm.cmd : (node:8088) ExperimentalWarning: SQLite is an experimental feature and
+might change at any time
+No linha:1 caractere:1
++ npm.cmd run test:coverage *> "docs/evidencias/logs-entrega3/testes-co ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:8088) Exp...nge at any time:S
+   tring) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS tests/validacoes.test.js
+PASS tests/compromissos.test.js
+(node:9392) ExperimentalWarning: SQLite is an experimental feature and might
+change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20324) ExperimentalWarning: SQLite is an experimental feature and might
+change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS tests/persistencia.test.js
+PASS tests/tarefas.test.js
+PASS tests/isolamento.test.js
+PASS tests/cronograma.test.js
+PASS tests/interface.test.js
+PASS tests/index.test.js
+-----------------------------|---------|----------|---------|---------|-------------------
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-----------------------------|---------|----------|---------|---------|-------------------
+All files                    |   98.38 |    91.26 |   96.66 |   98.38 |
+ src                         |   88.88 |       50 |      50 |   88.88 |
+  index.js                   |   88.88 |       50 |      50 |   88.88 | 33-34
+ src/controllers             |     100 |     93.1 |     100 |     100 |
+  compromissos.controller.js |     100 |    92.85 |     100 |     100 | 21,75
+  cronograma.controller.js   |     100 |      100 |     100 |     100 |
+  tarefas.controller.js      |     100 |    92.85 |     100 |     100 | 21,75
+ src/database                |      90 |    33.33 |     100 |      90 |
+  database.js                |      90 |    33.33 |     100 |      90 | 19
+ src/routes                  |     100 |      100 |     100 |     100 |
+  compromissos.routes.js     |     100 |      100 |     100 |     100 |
+  cronograma.routes.js       |     100 |      100 |     100 |     100 |
+  tarefas.routes.js          |     100 |      100 |     100 |     100 |
+ src/services                |     100 |      100 |     100 |     100 |
+  compromissos.service.js    |     100 |      100 |     100 |     100 |
+  tarefas.service.js         |     100 |      100 |     100 |     100 |
+ src/utils                   |     100 |      100 |     100 |     100 |
+  validacoes.js              |     100 |      100 |     100 |     100 |
+-----------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 8 passed, 8 total
+Tests:       59 passed, 59 total
+Snapshots:   0 total
+Time:        1.754 s, estimated 2 s
+Ran all test suites.

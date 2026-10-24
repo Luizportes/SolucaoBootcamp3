@@ -9,7 +9,8 @@
  "scripts": {
     "test": "jest",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "test:coverage": "jest --coverage --runInBand"
 },
   "repository": {
     "type": "git",
