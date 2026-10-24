@@ -134,4 +134,49 @@ describe("API de Tarefas", () => {
         ).toBe(true);
     });
 
+describe("Casos de erro adicionais - Tarefas", () => {
+
+    const tarefaValida = {
+        titulo: "Estudar para prova",
+        prazo: "2026-10-20",
+        descricao: "Revisar o conteudo",
+        status: "pendente"
+    };
+
+    test("PUT deve rejeitar identificador invalido", async () => {
+        const response = await request(app)
+            .put("/api/tarefas/abc")
+            .send(tarefaValida);
+
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toHaveProperty("erro");
+    });
+
+    test("PUT deve retornar 404 para tarefa inexistente", async () => {
+        const response = await request(app)
+            .put("/api/tarefas/999999")
+            .send(tarefaValida);
+
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toHaveProperty("erro");
+    });
+
+    test("DELETE deve rejeitar identificador invalido", async () => {
+        const response = await request(app)
+            .delete("/api/tarefas/abc");
+
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toHaveProperty("erro");
+    });
+
+    test("DELETE deve retornar 404 para tarefa inexistente", async () => {
+        const response = await request(app)
+            .delete("/api/tarefas/999999");
+
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toHaveProperty("erro");
+    });
+
+});
+
 });
