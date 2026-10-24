@@ -89,3 +89,22 @@ As atividades de documentação envolveram:
 - preparação de orientações para revisão dos documentos e conferência do estado do Git.
 
 As alterações propostas devem ser conferidas pelo integrante responsável antes de serem incorporadas ao repositório. Os resultados dos testes devem ser apresentados conforme as execuções efetivamente realizadas, sem inventar evidências ou resultados.
+
+---
+
+## Apoio à documentação da Entrega 3
+
+Na preparação da documentação da Entrega 3, a IA foi utilizada como apoio à revisão e à consolidação dos documentos existentes.
+
+As atividades envolveram:
+
+- revisão do README para alinhar as instruções de execução e os resultados técnicos registrados;
+- comparação do SDD com as evidências da implementação final;
+- revisão do ADR para atualizar o registro dos testes automatizados;
+- conferência da consistência entre os resultados de testes, a cobertura de código e as evidências da Entrega 3.
+
+As alterações foram realizadas e conferidas pelo integrante responsável. Os resultados técnicos foram baseados nos registros existentes no repositório, sem tratar sugestões da IA como evidências de execução.
+
+A revisão documental não substitui a aprovação da equipe, a execução independente dos testes nem a revisão do Pull Request.
+
+**Limitação:** esta seção registra o uso de IA no apoio à documentação. Ela não afirma que a IA executou os testes, realizou a auditoria de segurança ou homologou funcionalmente a aplicação.

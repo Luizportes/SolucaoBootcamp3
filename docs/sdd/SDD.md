@@ -544,3 +544,46 @@ Também foram identificados alertas de segurança em dependências de desenvolvi
 Os alertas remanescentes exigem acompanhamento e não foram corrigidos por meio de atualizações forçadas potencialmente incompatíveis.
 
 O projeto representa uma solução simplificada de agenda virtual, sem funcionalidades avançadas como contas de usuários, compartilhamento de agendas, notificações ou sincronização com serviços externos.
+
+---
+
+## 13. Validação e Consolidação da Entrega 3
+
+### 13.1 Resultado dos Testes Automatizados
+
+Na execução registrada para a Entrega 3, foram obtidos os seguintes resultados:
+
+- 8 suítes de testes aprovadas;
+- 59 testes aprovados;
+- 0 falhas.
+
+A cobertura registrada foi:
+
+| Métrica | Resultado |
+|---|---:|
+| Statements | 98,38% |
+| Branches | 91,26% |
+| Functions | 96,66% |
+| Lines | 98,38% |
+
+Os resultados detalhados estão registrados em `docs/evidencias/ENTREGA_3.md` e `docs/evidencias/logs-entrega3/testes-cobertura.txt`.
+
+### 13.2 Auditoria de Segurança
+
+A evidência registrada para a Entrega 3 informa que a execução de `npm audit --omit=dev` não identificou vulnerabilidades nas dependências de produção naquele momento.
+
+Esse resultado representa uma verificação pontual do ambiente e das dependências analisadas, não uma garantia permanente de ausência de vulnerabilidades.
+
+### 13.3 Validação em Ambiente Docker
+
+A aplicação foi construída e executada em container Docker, com testes automatizados executados no ambiente de container.
+
+O Docker Compose utiliza o volume nomeado `agenda_data`, associado ao diretório `/app/data`, para manter os dados SQLite entre reinicializações do container. A persistência foi verificada após reiniciar e recriar o container sem remover o volume.
+
+### 13.4 Limitações e Escopo da Validação
+
+Os resultados apresentados comprovam os cenários automatizados e as verificações registrados para a Entrega 3. Não representam garantia de ausência de todos os defeitos possíveis.
+
+Permanecem limitações relacionadas à ausência de autenticação e isolamento de dados por usuário, à falta de sincronização com calendários externos, à cobertura incompleta de interações da interface no navegador e à ausência de testes formais de carga e desempenho.
+
+O SQLite nativo utilizado no Node.js também pode apresentar avisos relacionados ao seu status experimental, conforme o ambiente de execução.
