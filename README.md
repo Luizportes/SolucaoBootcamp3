@@ -1,142 +1,149 @@
+
 # SolucaoBootcamp3
 
-Aplicação web para organização de compromissos, tarefas e atividades de um cronograma diário. Projeto desenvolvido no Bootcamp 3, com foco em organização do código, testes automatizados, persistência de dados e documentação técnica.
+Aplicação web para organização de compromissos, tarefas e atividades de um cronograma diário. Projeto desenvolvido no Bootcamp 3, com foco em arquitetura organizada, testes automatizados, persistência de dados e documentação técnica.
 
-## Objetivo
+## 1. Objetivo
 
-Permitir que o usuário gerencie compromissos e tarefas por meio de uma interface web, com operações de cadastro, consulta, atualização e exclusão, além da consulta de atividades por data.
+Permitir que o usuário gerencie compromissos e tarefas por meio de uma interface web e de uma API REST, incluindo operações de cadastro, consulta, atualização e exclusão, além da consulta de atividades por data.
 
-## Tecnologias utilizadas
+## 2. Tecnologias utilizadas
 
 - **Node.js 24:** ambiente de execução.
 - **Express:** servidor HTTP e API REST.
-- **SQLite:** persistência dos compromissos e das tarefas.
+- **SQLite:** persistência dos dados.
 - **HTML, CSS e JavaScript:** interface web.
-- **Jest:** execução dos testes automatizados.
-- **Supertest:** testes HTTP da aplicação.
-- **Docker e Docker Compose:** padronização do ambiente de execução.
+- **Jest:** testes automatizados.
+- **Supertest:** testes HTTP.
+- **Docker e Docker Compose:** ambiente conteinerizado.
 - **Git e GitHub:** versionamento e colaboração.
 
-## Funcionalidades
+## 3. Funcionalidades
 
-- Gerenciamento de compromissos.
-- Gerenciamento de tarefas.
-- Consulta de atividades por data.
+- Cadastro, consulta, atualização e exclusão de compromissos.
+- Cadastro, consulta, atualização e exclusão de tarefas.
+- Consulta do cronograma por data.
 - Validação de campos, datas, horários, status e identificadores.
-- Persistência de registros em SQLite.
+- Persistência dos dados em SQLite.
 - Interface web acessível pelo navegador.
-- Execução local ou em ambiente Docker.
+- Execução local ou com Docker Compose.
 
-## Requisitos
+## 4. Requisitos para execução
 
-Para executar o projeto localmente, instale:
+Para executar localmente:
 
-- Node.js compatível com a versão utilizada no projeto.
+- Node.js 24.
 - npm, incluído na instalação do Node.js.
 
 Para utilizar o ambiente conteinerizado, instale também o Docker com suporte ao Docker Compose.
 
-## Instalação
+## 5. Instalação e execução local
 
-Clone o repositório e entre na pasta do projeto:
+Clone o repositório e entre na pasta:
 
 ```bash
 git clone https://github.com/Luizportes/SolucaoBootcamp3.git
 cd SolucaoBootcamp3
 ```
 
-Instale as dependências:
+Instale as dependências usando o arquivo de lock:
 
 ```bash
-npm install
-```
-
-## Execução local
-
-Para iniciar a aplicação em modo de desenvolvimento:
-
-```bash
-npm run dev
-```
-
-Para iniciar a aplicação normalmente:
-
-```bash
-npm start
-```
-
-Por padrão, o servidor utiliza a porta `3000`.
-
-A interface web está disponível em:
-
-http://localhost:3000/agenda/
-
-## Testes automatizados
-
-O projeto utiliza Jest e Supertest para verificar o comportamento da aplicação.
-
-Execute a suíte de testes com:
-
-```bash
-npm test
-```
-
-No Windows PowerShell, se necessário, utilize:
-
-```powershell
-npm.cmd test
-```
-
-A execução registrada para a Entrega 2 apresentou:
-
-- 8 suítes aprovadas;
-- 47 testes aprovados;
-- 0 testes com falha;
-- 100% de aprovação dos testes executados.
-
-Esses resultados se referem à suíte executada e não representam uma garantia de ausência de defeitos.
-
-O relatório detalhado está disponível em [`docs/testes/RELATORIO_TESTES.md`](docs/testes/RELATORIO_TESTES.md).
-
-## Execução com Docker Compose
-
-Construa a imagem:
-
-```bash
-docker compose build
+npm ci
 ```
 
 Inicie a aplicação:
 
 ```bash
-docker compose up -d
+npm start
 ```
 
-Acesse a interface:
+Para iniciar em modo de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+Por padrão, o servidor utiliza a porta `3000`.
+
+- **Interface web:** http://localhost:3000/agenda/
+- **API:** disponibilizada pelo servidor Express.
+
+## 6. Execução com Docker Compose
+
+Construa a imagem e inicie a aplicação:
+
+```bash
+docker compose up -d --build
+```
+
+Acesse a interface em:
 
 http://localhost:3000/agenda/
 
-Para acompanhar os registros da aplicação:
+Consulte os logs da aplicação:
 
 ```bash
-docker compose logs -f
+docker compose logs app
 ```
 
-Para encerrar os serviços:
+Reinicie o serviço:
+
+```bash
+docker compose restart app
+```
+
+Encerre os serviços:
 
 ```bash
 docker compose down
 ```
 
-A configuração do Docker Compose utiliza um volume nomeado para preservar os dados do SQLite conforme a configuração do projeto. Não remova o volume se precisar manter os dados armazenados.
+O Docker Compose utiliza o volume nomeado `agenda_data` para armazenar os dados persistentes do SQLite no caminho `/app/data/agenda.db`.
 
-Para executar os testes no container:
+**Atenção:** evite `docker compose down -v` se precisar preservar os dados, pois esse comando remove os volumes do projeto.
+
+## 7. Testes automatizados
+
+Execute os testes:
 
 ```bash
-docker compose run --rm --no-deps -e NODE_ENV=test app npm test -- --runInBand
+npm test
 ```
 
-## Estrutura do projeto
+Para executar os testes com relatório de cobertura:
+
+```bash
+npm run test:coverage
+```
+
+O relatório HTML de cobertura pode ser consultado localmente em:
+
+`coverage/lcov-report/index.html`
+
+### Resultados registrados na Entrega 3
+
+De acordo com as evidências versionadas em `docs/evidencias/ENTREGA_3.md` e `docs/evidencias/logs-entrega3/testes-cobertura.txt`:
+
+| Indicador | Resultado |
+|---|---:|
+| Suítes aprovadas | 8 de 8 |
+| Testes aprovados | 59 de 59 |
+| Testes com falha | 0 |
+| Cobertura de instruções | 98,38% |
+| Cobertura de ramificações | 91,26% |
+| Cobertura de funções | 96,66% |
+| Cobertura de linhas | 98,38% |
+
+Esses números correspondem à execução registrada para a Entrega 3 e não constituem garantia de ausência de defeitos.
+
+Para executar os testes no container usando o comando validado na evidência técnica:
+
+```bash
+docker compose run --rm --no-deps -e NODE_ENV=test --entrypoint npm app test -- --runInBand
+```
+
+## 8. Estrutura do projeto
 
 ```text
 SolucaoBootcamp3/
@@ -146,7 +153,9 @@ SolucaoBootcamp3/
 │   │   └── FLUXO.md
 │   ├── evidencias/
 │   │   ├── ENTREGA_1.md
-│   │   └── ENTREGA_2.md
+│   │   ├── ENTREGA_2.md
+│   │   ├── ENTREGA_3.md
+│   │   └── logs-entrega3/
 │   ├── ia/
 │   │   ├── USO_IA.md
 │   │   ├── COMPARACAO_FERRAMENTAS.md
@@ -168,55 +177,58 @@ SolucaoBootcamp3/
 │   ├── services/
 │   └── utils/
 ├── tests/
-├── data/
 ├── Dockerfile
 ├── compose.yaml
 ├── package.json
 └── README.md
 ```
-## Documentação técnica
+
+## 9. Documentação técnica
 
 - [Software Design Document (SDD)](docs/sdd/SDD.md)
-- [Registro de Decisões Arquiteturais (ADR)](docs/arquitetura/ADR.md)
-- [Diagrama do fluxo da aplicação](docs/arquitetura/FLUXO.md)
-- [Registro de uso de Inteligência Artificial](docs/ia/USO_IA.md)
-- [Comparação de ferramentas de IA](docs/ia/COMPARACAO_FERRAMENTAS.md)
-- [Análise crítica e ética do uso de IA](docs/ia/ANALISE_CRITICA.md)
+- [Decisões arquiteturais (ADR)](docs/arquitetura/ADR.md)
+- [Fluxo da aplicação](docs/arquitetura/FLUXO.md)
 - [Evidências da Entrega 1](docs/evidencias/ENTREGA_1.md)
 - [Evidências da Entrega 2](docs/evidencias/ENTREGA_2.md)
-- [Relatório de testes da Entrega 2](docs/testes/RELATORIO_TESTES.md)
-- [Correções e refinamentos da Entrega 2](docs/testes/CORRECOES_E_REFINAMENTOS.md)
+- [Evidências técnicas da Entrega 3](docs/evidencias/ENTREGA_3.md)
+- [Relatório de testes](docs/testes/RELATORIO_TESTES.md)
+- [Correções e refinamentos](docs/testes/CORRECOES_E_REFINAMENTOS.md)
 - [Test Harness](docs/testes/TEST_HARNESS.md)
+- [Registro de uso de IA](docs/ia/USO_IA.md)
+- [Comparação de ferramentas de IA](docs/ia/COMPARACAO_FERRAMENTAS.md)
+- [Análise crítica e ética do uso de IA](docs/ia/ANALISE_CRITICA.md)
 
-## Organização do Git
+## 10. Organização do Git
 
-O projeto utiliza a seguinte estratégia de branches:
+O projeto utiliza as seguintes branches principais:
 
 - `main`: branch principal.
 - `develop`: branch de integração.
-- `feature/*`: branches destinadas ao desenvolvimento de funcionalidades e alterações específicas.
+- `feature/*`: branches de desenvolvimento e alterações específicas.
+- `docs/*`: branches destinadas a alterações de documentação.
 
-As alterações devem ser desenvolvidas em branches próprias e integradas por meio de Pull Requests, respeitando as regras de proteção e revisão configuradas no repositório.
+As alterações devem ser desenvolvidas em branches próprias e integradas por meio de Pull Requests, respeitando as regras de revisão do repositório.
 
-## Uso de Inteligência Artificial
+## 11. Uso de Inteligência Artificial
 
-O GitHub Copilot Chat, integrado ao Visual Studio Code e utilizado no modo Agent, foi empregado como ferramenta de apoio ao desenvolvimento.
+O uso de ferramentas de inteligência artificial como apoio ao projeto está registrado em [docs/ia/USO_IA.md](docs/ia/USO_IA.md), com informações complementares em [COMPARACAO_FERRAMENTAS.md](docs/ia/COMPARACAO_FERRAMENTAS.md) e [ANALISE_CRITICA.md](docs/ia/ANALISE_CRITICA.md).
 
-O Claude Code e o Codex CLI foram instalados ou testados, mas houve limitações de autenticação no ambiente disponível. O registro detalhado dessas tentativas e do uso efetivo da IA está em [`docs/ia/USO_IA.md`](docs/ia/USO_IA.md).
+As sugestões geradas por IA devem ser avaliadas e verificadas pelos integrantes antes de serem incorporadas ao projeto.
 
-As sugestões geradas por IA devem ser avaliadas pelos integrantes do projeto antes de serem incorporadas ao código.
+## 12. Limitações conhecidas
 
-## Limitações conhecidas
+Conforme a documentação existente:
 
-- A aplicação não possui autenticação nem segregação de dados entre usuários.
-- Não foi implementada sincronização com calendários externos.
-- Os testes automatizados da interface verificam a disponibilização dos arquivos estáticos, não todas as interações do navegador.
+- A aplicação não possui autenticação nem separação de dados entre usuários.
+- Não há sincronização com calendários externos.
+- Os testes automatizados da interface não cobrem todas as interações reais do navegador.
 - Não foram apresentados testes formais de carga ou desempenho.
-- O SQLite nativo do Node.js apresenta aviso de funcionalidade experimental na versão utilizada.
-- Permanecem alertas na árvore de dependências de desenvolvimento, conforme documentado no relatório de correções.
+- O SQLite nativo do Node.js pode emitir um aviso de funcionalidade experimental na versão utilizada.
 
-## Status do projeto
+Outras limitações e decisões estão registradas no SDD, nas ADRs e nos relatórios de testes.
 
-A Entrega 2 evoluiu a aplicação inicial para uma solução web com gerenciamento de compromissos e tarefas, cronograma por data, persistência SQLite, interface gráfica e execução com Docker Compose.
+## 13. Status da Entrega 3
 
-Os resultados de testes, as decisões técnicas, as correções e as limitações conhecidas estão registrados na documentação do repositório.
+A documentação técnica registra 59 testes aprovados, cobertura de linhas de 98,38%, auditoria de dependências de produção sem vulnerabilidades identificadas na execução registrada e verificações de persistência do SQLite e das principais funcionalidades da aplicação em Docker.
+
+Consulte [docs/evidencias/ENTREGA_3.md](docs/evidencias/ENTREGA_3.md) para os detalhes e as evidências correspondentes.

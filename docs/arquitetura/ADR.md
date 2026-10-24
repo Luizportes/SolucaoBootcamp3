@@ -179,6 +179,7 @@ A separação de responsabilidades facilita a manutenção do código, a identif
 
 **Trade-offs e consequências:** a organização em camadas torna as responsabilidades mais claras e facilita testes e manutenção, mas acrescenta arquivos e exige definir corretamente a comunicação entre as camadas.
 ## ADR08 — Utilização de testes automatizados com Jest
+A automação permite executar os cenários de teste de maneira repetível e identificar regressões durante a evolução do projeto. Na Entrega 3, a execução registrada apresentou 8 suítes e 59 testes aprovados, sem falhas. A cobertura registrada foi de 98,38% para statements, 91,26% para branches, 96,66% para functions e 98,38% para lines. Os resultados detalhados estão documentados em `docs/evidencias/ENTREGA_3.md` e `docs/evidencias/logs-entrega3/testes-cobertura.txt`.
 
 **Status:** Aceita
 

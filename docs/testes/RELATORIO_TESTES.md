@@ -352,3 +352,49 @@ confirmando operações da agenda pelo navegador.
 O conjunto de evidências demonstra que a solução
 atende aos cenários verificados e apresenta um ambiente
 de execução reproduzível.
+
+---
+
+## 13. Validação da Entrega 3
+
+### 13.1 Resultado dos testes automatizados
+
+Conforme as evidências registradas para a Entrega 3, a execução dos testes automatizados apresentou os seguintes resultados:
+
+- **Suítes aprovadas:** 8 de 8;
+- **Testes aprovados:** 59 de 59;
+- **Falhas:** 0.
+
+### 13.2 Cobertura de código
+
+A execução registrada de cobertura apresentou os seguintes resultados:
+
+| Métrica | Cobertura |
+|---|---:|
+| Statements | 98,38% |
+| Branches | 91,26% |
+| Functions | 96,66% |
+| Lines | 98,38% |
+
+O relatório detalhado pode ser consultado em `coverage/lcov-report/index.html`, após executar `npm run test:coverage`.
+
+### 13.3 Execução em Docker
+
+As evidências da Entrega 3 registram a execução dos testes automatizados em ambiente Docker, com 8 suítes e 59 testes aprovados, sem falhas.
+
+Também foi registrada a validação da interface web em `http://localhost:3000/agenda/` e a persistência dos dados SQLite utilizando o volume nomeado `agenda_data`.
+
+### 13.4 Segurança e limitações
+
+A evidência da Entrega 3 registra que `npm audit --omit=dev` não identificou vulnerabilidades nas dependências de produção naquele momento. Esse resultado representa uma verificação pontual, não uma garantia permanente de ausência de vulnerabilidades.
+
+A cobertura automatizada não garante ausência total de defeitos. Permanecem limitações relacionadas à ausência de autenticação e isolamento de dados por usuário, à falta de sincronização com calendários externos, à cobertura incompleta das interações da interface no navegador e à ausência de testes formais de carga e desempenho.
+
+### 13.5 Evidências
+
+Os resultados detalhados da Entrega 3 estão registrados em:
+
+- `docs/evidencias/ENTREGA_3.md`;
+- `docs/evidencias/logs-entrega3/testes-cobertura.txt`.
+
+Os resultados históricos da Entrega 2 permanecem nas seções anteriores deste documento.
